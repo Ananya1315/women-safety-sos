@@ -1,6 +1,5 @@
-
+🛡️ Women Safety SOS Platform
 ````md
-# 🛡️ Women Safety SOS Platform
 
 A web-based women safety application that allows users to quickly trigger emergency SOS alerts, including silent SOS mechanisms, and enables trusted circles/officials to monitor and respond to incidents.
 
