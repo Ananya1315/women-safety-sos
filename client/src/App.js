@@ -19,9 +19,12 @@ function App() {
           body: JSON.stringify({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
+            triggertype:"normal",
+            method:"button"
           }),
         })
-          .then(() => setStatus("🚨 SOS Sent Successfully"))
+          .then((res)=>res.json())
+          .then((data) => setStatus("🚨 SOS Sent Successfully"))
           .catch(() => setStatus("Failed to send SOS"));
       },
       () => setStatus("Location permission denied")
