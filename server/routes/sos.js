@@ -8,14 +8,24 @@ router.post("/", (req, res) => {
     return res.status(400).json({ message: "Location missing" });
   }
 
+  const utcTime = new Date().toISOString();
+
+  const istTime = new Date().toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+  });
+
   console.log("🚨 SOS TRIGGERED");
   console.log({
     latitude: lat,
     longitude: lng,
-    time: new Date().toISOString(),
+    utcTime: utcTime,
+    istTime: istTime,
   });
 
-  res.status(200).json({ message: "SOS sent successfully" });
+  res.status(200).json({
+    message: "SOS sent successfully",
+    time: istTime,
+  });
 });
 
 module.exports = router;
