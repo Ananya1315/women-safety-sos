@@ -1,5 +1,8 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
+require("dotenv").config();
+
 const sosRoutes = require("./routes/sos");
 
 
@@ -12,6 +15,9 @@ app.use("/api/sos", sosRoutes);
 app.get("/", (req, res) => {
   res.send("Women Safety API running");
 });
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
 const PORT = 5000;
 app.listen(PORT, () => {
