@@ -3,14 +3,16 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const sosRoutes = require("./routes/sos");
-
-
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+const sosRoutes = require("./routes/sos");
+const incidentRoutes = require("./routes/incident_reporting");
+
 app.use("/api/sos", sosRoutes);
+app.use("/api/incident_reporting", incidentRoutes);
 
 app.get("/", (req, res) => {
   res.send("Women Safety API running");
