@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Navbar from "../Navbar";
 
 function TrustedCircle() {
   const [sosAlerts, setSosAlerts] = useState([]);
@@ -54,6 +55,8 @@ const fetchIncidents = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div style={{ padding: "20px" }}>
       <h1>Trusted Circle Dashboard</h1>
 
@@ -134,7 +137,7 @@ const fetchIncidents = () => {
           )}
         </div>
       ))}
-    </div>
+    </div></>
   );
 }
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Navbar from "../Navbar";
 
 function IncidentReport() {
   const [category, setCategory] = useState("");
@@ -41,6 +42,8 @@ function IncidentReport() {
   };
 
   return (
+    <>
+    <Navbar />
     <div style={{ padding: "40px" }}>
       <h2>Report Incident</h2>
 
@@ -90,6 +93,7 @@ function IncidentReport() {
 
       <p>{message}</p>
     </div>
+    </>
   );
 }
 

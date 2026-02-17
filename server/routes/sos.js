@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const SOS = require("../models/SOS");
+const SOS = require("../models/sos");
+const { protect } = require("../middleware/authMiddleware");
 
 //  CREATE SOS
-router.post("/", async (req, res) => {
+router.post("/", protect, async (req, res) => {
   try {
     const newSOS = new SOS(req.body);
     await newSOS.save();

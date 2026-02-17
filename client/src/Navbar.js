@@ -1,27 +1,78 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const name = localStorage.getItem("name");
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
+
   return (
-    <nav style={{
-      display: "flex",
-      gap: "20px",
-      padding: "15px",
-      backgroundColor: "#111",
-      color: "white"
-    }}>
-      <Link to="/" style={{ color: "white", textDecoration: "none" }}>
-         SOS
-      </Link>
+    <nav style={styles.navbar}>
+      
+      <div style={styles.logo}>
+        Women Safety Platform
+      </div>
 
-      <Link to="/report" style={{ color: "white", textDecoration: "none" }}>
-         Report Incident
-      </Link>
+      {token && (
+        <div style={styles.rightSection}>
+          
+          <Link to="/sos" style={styles.link}>SOS</Link>
+          <Link to="/report" style={styles.link}>Report</Link>
+          <Link to="/trusted" style={styles.link}>Trusted Circle</Link>
 
-      <Link to="/trusted" style={{ color: "white", textDecoration: "none" }}>
-         Trusted Circle
-      </Link>
+          <span style={styles.user}>
+            {name}
+          </span>
+
+          <button onClick={handleLogout} style={styles.logoutBtn}>
+            Logout
+          </button>
+
+        </div>
+      )}
     </nav>
   );
 }
+
+const styles = {
+  navbar: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "15px 30px",
+    backgroundColor: "#1d3557",
+    color: "white",
+  },
+  logo: {
+    fontSize: "18px",
+    fontWeight: "bold",
+  },
+  rightSection: {
+    display: "flex",
+    alignItems: "center",
+    gap: "20px",
+  },
+  link: {
+    textDecoration: "none",
+    color: "white",
+    fontSize: "15px",
+  },
+  user: {
+    fontSize: "14px",
+    opacity: 0.9,
+  },
+  logoutBtn: {
+    padding: "6px 12px",
+    borderRadius: "5px",
+    border: "none",
+    backgroundColor: "#e63946",
+    color: "white",
+    cursor: "pointer",
+  },
+};
 
 export default Navbar;

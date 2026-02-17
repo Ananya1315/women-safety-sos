@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Navbar from "../Navbar";
 
 function UserSOSPage() {
   const [status, setStatus] = useState("");
@@ -22,7 +23,9 @@ function UserSOSPage() {
 
         fetch("http://localhost:5000/api/sos", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+  "Content-Type": "application/json",
+  "Authorization": `Bearer ${localStorage.getItem("token")}`},
           body: JSON.stringify({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
@@ -42,6 +45,8 @@ function UserSOSPage() {
   };
 
   return (
+    <>
+    <Navbar />
     <div style={{ textAlign: "center", marginTop: "100px" }}>
       <h1>Women Safety Platform</h1>
 
@@ -61,7 +66,7 @@ function UserSOSPage() {
       </button>
 
       <p>{status}</p>
-    </div>
+    </div></>
   );
 }
 
