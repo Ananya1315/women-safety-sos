@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config();
 
 const app = express();
 
@@ -24,7 +23,7 @@ app.get("/", (req, res) => {
 //   res.send("Test route working");
 // });
 
-
+console.log("Loaded MONGO_URI:", process.env.MONGO_URI);
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
