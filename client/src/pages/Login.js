@@ -6,6 +6,12 @@ function Login() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // NEW STATES
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [emergencyName, setEmergencyName] = useState("");
+  const [emergencyContact, setEmergencyContact] = useState("");
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -14,6 +20,13 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
+    // Frontend validation (extra safety)
+    if (!isLogin && mobileNumber === emergencyContact) {
+      setError("Mobile number and emergency contact cannot be the same");
+      return;
+    }
+
     setLoading(true);
 
     const url = isLogin
@@ -22,7 +35,7 @@ function Login() {
 
     const bodyData = isLogin
       ? { email, password }
-      : { name, email, password };
+      : { name, email, password, mobileNumber, emergencyName, emergencyContact };
 
     try {
       const res = await fetch(url, {
@@ -42,7 +55,7 @@ function Login() {
       if (isLogin) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.role);
-        localStorage.setItem("name",data.name);
+        localStorage.setItem("name", data.name);
         navigate("/sos");
       } else {
         setIsLogin(true);
@@ -64,13 +77,39 @@ function Login() {
         <form onSubmit={handleSubmit}>
 
           {!isLogin && (
-            <input
-              type="text"
-              placeholder="Full Name"
-              onChange={(e) => setName(e.target.value)}
-              required
-              style={styles.input}
-            />
+            <>
+              <input
+                type="text"
+                placeholder="Full Name"
+                onChange={(e) => setName(e.target.value)}
+                required
+                style={styles.input}
+              />
+
+              <input
+                type="text"
+                placeholder="Mobile Number"
+                onChange={(e) => setMobileNumber(e.target.value)}
+                required
+                style={styles.input}
+              />
+
+              <input
+                type="text"
+                placeholder="Emergency Contact Name"
+                onChange={(e) => setEmergencyName(e.target.value)}
+                required
+                style={styles.input}
+              />
+
+              <input
+                type="text"
+                placeholder="Emergency Contact Number"
+                onChange={(e) => setEmergencyContact(e.target.value)}
+                required
+                style={styles.input}
+              />
+            </>
           )}
 
           <input
