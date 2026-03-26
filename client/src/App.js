@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import UserSOSPage from "./pages/UserSOS";
 import TrustedCircle from "./pages/TrustedCircle";
 import IncidentReport from "./pages/IncidentReporting";
+import Heatmap from "./pages/Heatmap";
 
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -19,6 +20,8 @@ function App() {
         <Route path="/sos" element={<ProtectedRoute><UserSOSPage /></ProtectedRoute>} />
         <Route path="/report" element={<IncidentReport />} />
         <Route path="/trusted" element={<TrustedCircle />} />
+        <Route path="/heatmap" element={<Heatmap/>}/>
+        
       </Routes>
     </Router>
   );

@@ -4,12 +4,12 @@ const Incident = require("../models/incident_reporting");
 
 // CREATE INCIDENT
 router.post("/", async (req, res) => {
-  console.log("REQ BODY 👉", req.body);
+  console.log("REQ BODY ", req.body);
 
   const { lat, lng, category, description } = req.body;
 
   if (!lat || !lng || !category || !description) {
-    console.log("❌ Missing fields");
+    console.log("Missing fields");
     return res.status(400).json({ message: "Missing fields" });
   }
 
@@ -25,10 +25,10 @@ router.post("/", async (req, res) => {
       }),
     });
 
-    console.log("✅ SAVED:", incident);
+    console.log("SAVED:", incident);
     res.status(201).json(incident);
   } catch (err) {
-    console.error("❌ SAVE ERROR:", err);
+    console.error("SAVE ERROR:", err);
     res.status(500).json({ message: "Error saving incident" });
   }
 });
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
 // GET ALL INCIDENTS
 router.get("/", async (req, res) => {
   try {
-    const incidents = await Incident.find().sort({ reportedAtUTC: -1 });
+    const incidents = await Incident.find({},{lat:1,lng:1,_id:0});
     res.json(incidents);
   } catch (err) {
     res.status(500).json({ message: "Error fetching incidents" });
