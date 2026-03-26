@@ -24,9 +24,14 @@ function Navbar() {
           <Link to="/report" style={styles.link}>Report</Link>
           <Link to="/trusted" style={styles.link}>Trusted Circle</Link>
 
+
           <span style={styles.user}>
             {name}
           </span>
+
+          <button onClick={() => navigate("/heatmap")}>
+            View Safety Map
+          </button>
 
           <button onClick={handleLogout} style={styles.logoutBtn}>
             Logout
