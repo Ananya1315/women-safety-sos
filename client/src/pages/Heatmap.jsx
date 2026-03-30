@@ -8,7 +8,7 @@ const HeatLayer = () => {
   const map = useMap();
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/incident_reporting")
+    fetch("http://localhost:5000/api/heatmap")
       .then((res) => res.json())
       .then((data) => {
         console.log("DATA:", data);
@@ -16,7 +16,7 @@ const HeatLayer = () => {
         const heatData = data.map((item) => [
           item.lat,
           item.lng,
-          1,
+          item.weight || 1
         ]);
         console.log("HEAT DATA:", heatData); 
         const heat = L.heatLayer(heatData, {
