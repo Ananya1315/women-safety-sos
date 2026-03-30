@@ -11,10 +11,12 @@ app.use(express.json());
 const sosRoutes = require("./routes/sos");
 const incidentRoutes = require("./routes/incident_reporting");
 const authRoutes=require("./routes/authRoutes");
+const heatmapRoutes = require("./routes/heatmap");
 
 app.use("/api/sos", sosRoutes);
 app.use("/api/incident_reporting", incidentRoutes);
 app.use("/api/auth",authRoutes);
+app.use("/api/heatmap", heatmapRoutes);
 
 app.get("/", (req, res) => {
   res.send("Women Safety API running");

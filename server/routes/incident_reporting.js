@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
 // GET ALL INCIDENTS
 router.get("/", async (req, res) => {
   try {
-    const incidents = await Incident.find({},{lat:1,lng:1,_id:0});
+    const incidents = await Incident.find().sort({ reportedAtUTC:-1 });
     res.json(incidents);
   } catch (err) {
     res.status(500).json({ message: "Error fetching incidents" });

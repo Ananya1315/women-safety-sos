@@ -23,15 +23,11 @@ function Navbar() {
           <Link to="/sos" style={styles.link}>SOS</Link>
           <Link to="/report" style={styles.link}>Report</Link>
           <Link to="/trusted" style={styles.link}>Trusted Circle</Link>
-
+          <Link to="/heatmap" style={styles.link}>Safety map</Link>
 
           <span style={styles.user}>
             {name}
           </span>
-
-          <button onClick={() => navigate("/heatmap")}>
-            View Safety Map
-          </button>
 
           <button onClick={handleLogout} style={styles.logoutBtn}>
             Logout
