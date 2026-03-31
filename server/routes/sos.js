@@ -17,7 +17,7 @@ router.post("/", protect, async (req, res) => {
 //GET ALL SOS 
 router.get("/", async (req, res) => {
   try {
-    const alerts = await SOS.find().sort({ reportedAtUTC:-1 });
+    const alerts = await SOS.find().sort({ utcTime: -1 });
     res.json(alerts);
   } catch (err) {
     res.status(500).json({ message: "Error fetching SOS" });
