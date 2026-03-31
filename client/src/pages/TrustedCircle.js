@@ -77,7 +77,7 @@ const fetchIncidents = () => {
           <p><b>Time:</b> {alert.istTime}</p>
           <p><b>Status:</b> {alert.status}</p>
 
-          {alert.status !== "resolved" && (
+          {alert.status !== "resolved" && alert.status !== "false alarm" && (
             <>
               <button
                 onClick={() => updateSOSStatus(alert._id, "help coming")}

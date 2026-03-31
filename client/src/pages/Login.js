@@ -11,7 +11,7 @@ function Login() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [emergencyName, setEmergencyName] = useState("");
   const [emergencyContact, setEmergencyContact] = useState("");
-
+const [role, setRole] = useState("user");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +35,7 @@ function Login() {
 
     const bodyData = isLogin
       ? { email, password }
-      : { name, email, password, mobileNumber, emergencyName, emergencyContact };
+      : { name, email, password, mobileNumber, emergencyName, emergencyContact, role };
 
     try {
       const res = await fetch(url, {
@@ -54,8 +54,9 @@ function Login() {
 
       if (isLogin) {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("role", data.role);
         localStorage.setItem("name", data.name);
+        localStorage.setItem("role", data.role);
+        localStorage.setItem("email", data.email);
         navigate("/sos");
       } else {
         setIsLogin(true);
@@ -127,7 +128,26 @@ function Login() {
             required
             style={styles.input}
           />
+          {!isLogin && (
+  <div style={{ marginBottom: "15px", textAlign: "left" }}>
+    
 
+    <select
+      value={role}
+      onChange={(e) => setRole(e.target.value)}
+      style={{
+        width: "100%",
+        padding: "10px",
+        marginTop: "5px",
+        borderRadius: "5px",
+        border: "1px solid #ccc",
+      }}
+    >
+      <option value="user">User</option>
+      <option value="official">Official</option>
+    </select>
+  </div>
+)}
           <button
             type="submit"
             disabled={loading}

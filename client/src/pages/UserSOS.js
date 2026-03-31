@@ -17,7 +17,7 @@ function UserSOSPage() {
       .catch((err) => console.error(err));
   };
 
-  // 🔄 Poll every 3 seconds
+  
   useEffect(() => {
     fetchLatestSOS();
 
@@ -26,7 +26,7 @@ function UserSOSPage() {
     return () => clearInterval(interval);
   }, []);
 
-  // 🚨 Trigger SOS
+  
   const handleSOS = () => {
     if (!navigator.geolocation) {
       setStatus("Geolocation not supported");
@@ -70,7 +70,6 @@ function UserSOSPage() {
     );
   };
 
-  // ❗ Mark False Alarm
   const markFalseAlarm = (id) => {
     fetch(`http://localhost:5000/api/sos/${id}`, {
       method: "PUT",
