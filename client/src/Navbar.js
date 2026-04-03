@@ -23,7 +23,7 @@ function Navbar() {
           <Link to="/sos" style={styles.link}>SOS</Link>
           <Link to="/report" style={styles.link}>Report</Link>
           <Link to="/trusted" style={styles.link}>Trusted Circle</Link>
-
+          <Link to="/safe-map" style={styles.link}>Safe Route</Link>
 
           <span style={styles.user}>
             {name}
