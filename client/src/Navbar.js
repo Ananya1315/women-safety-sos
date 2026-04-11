@@ -7,49 +7,50 @@ function Navbar() {
   const role = localStorage.getItem("role");
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.clear(); // also removes trustedAccess
     navigate("/");
   };
-
-  // 🔐 Trusted Circle Access
   const handleTrustedAccess = async () => {
-  const enteredEmail = prompt("Enter official email:");
-  const passcode = prompt("Enter 4-digit passcode:");
+    const enteredEmail = prompt("Enter official email:");
+    const passcode = prompt("Enter 4-digit passcode:");
 
-  const loggedInEmail = localStorage.getItem("email"); // 👈 IMPORTANT
+    const loggedInEmail = localStorage.getItem("email");
 
-  // 🔒 CHECK: email must match logged-in user
-  if (enteredEmail !== loggedInEmail) {
-    alert("You can only use your own official credentials");
-    return;
-  }
-
-  if (!enteredEmail || !passcode) {
-    alert("All fields required");
-    return;
-  }
-
-  try {
-    const res = await fetch("http://localhost:5000/api/official/verify", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: enteredEmail, passcode }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      navigate("/trusted");
-    } else {
-      alert(data.message || "Access denied");
+    if (enteredEmail !== loggedInEmail) {
+      alert("You can only use your own official credentials");
+      return;
     }
+    if (!enteredEmail || !passcode) {
+      alert("All fields required");
+      return;
+    }
+    try {
+      const res = await fetch("http://localhost:5000/api/official/verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: enteredEmail, passcode }),
+      });
 
-  } catch (err) {
-    alert("Server error");
-  }
-};
+      const data = await res.json();
+
+      if (res.ok) {
+        
+        localStorage.setItem("trustedAccess", "true");
+setTimeout(() => {
+  localStorage.removeItem("trustedAccess");
+}, 60000);
+        navigate("/trusted");
+      } else {
+        alert(data.message || "Access denied");
+      }
+
+    } catch (err) {
+      alert("Server error");
+    }
+  };
+
   return (
     <nav style={styles.navbar}>
       <div style={styles.logo}>
@@ -62,6 +63,7 @@ function Navbar() {
           <Link to="/sos" style={styles.link}>SOS</Link>
 
           <Link to="/report" style={styles.link}>Report</Link>
+
           {/* 🔐 Only for officials */}
           {role === "official" && (
             <button onClick={handleTrustedAccess} style={styles.buttonLink}>
