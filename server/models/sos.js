@@ -29,6 +29,10 @@ const sosSchema = new mongoose.Schema({
     type: String,
     default: "pending",
   },
+  notified: {
+  type: Boolean,
+  default: false
+}
 });
 
 module.exports = mongoose.model("SOS", sosSchema);

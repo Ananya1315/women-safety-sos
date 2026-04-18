@@ -29,13 +29,22 @@ router.put("/:id", async (req, res) => {
   try {
     const { status } = req.body;
 
-    const updatedSOS = await SOS.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true }
-    );
+    const sos = await SOS.findById(req.params.id);
 
-    res.json(updatedSOS);
+    if (!sos) {
+      return res.status(404).json({ message: "SOS not found" });
+    }
+    sos.status = status;
+
+    //IMPORTANT ADD THIS
+    if (status === "help coming") {
+      sos.notified = true;
+    }
+
+    await sos.save();
+
+    res.json(sos);
+
   } catch (err) {
     res.status(500).json({ message: "Error updating status" });
   }
